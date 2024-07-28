@@ -1,0 +1,16 @@
+[package]
+name = "bmbp_marco"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+readme.workspace = true
+homepage.workspace = true
+repository.workspace = true
+documentation.workspace = true
+[dependencies]
+bmbp_marco_util = { workspace = true }
+bmbp_marco_bean = { workspace = true }
+bmbp_marco_rdbc = { workspace = true }
+bmbp_marco_curd = { workspace = true }

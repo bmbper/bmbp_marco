@@ -1,0 +1,15 @@
+[package]
+name = "bmbp_marco_bean"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+description.workspace = true
+[lib]
+proc-macro = true
+[dependencies]
+bmbp_marco_util = { path = "../bmbp_marco_util" }
+quote = { workspace = true }
+syn = { workspace = true }
+proc-macro2 = "1.0.82"
+case_style = { workspace = true }
+serde = { workspace = true }
