@@ -1,9 +1,14 @@
 [package]
 name = "bmbp_marco_curd"
 version.workspace = true
-authors.workspace = true
 edition.workspace = true
+authors.workspace = true
 description.workspace = true
+license.workspace = true
+readme.workspace = true
+homepage.workspace = true
+repository.workspace = true
+documentation.workspace = true
 [lib]
 proc-macro = true
 [dependencies]
