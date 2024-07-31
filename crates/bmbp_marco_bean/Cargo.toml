@@ -1,6 +1,6 @@
 [package]
 name = "bmbp_marco_bean"
-version.workspace = true
+version = '0.0.2.1'
 edition.workspace = true
 authors.workspace = true
 description.workspace = true
