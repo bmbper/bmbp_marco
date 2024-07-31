@@ -15,13 +15,13 @@ pub(crate) fn marco_rdbc_tree_bean(
     let struct_ident = &struct_input_token.ident;
     let struct_attrs = &struct_input_token.attrs.as_slice();
     // 基础字段
-    let mut struct_base_field_name = util::build_base_field_name();
+    let struct_base_field_name = util::build_base_field_name();
     let mut struct_base_fields = util::build_base_field();
 
     // 获取树型标记
     let tree_prefix = parse_tree_meta(meta_token.into());
-    let mut tree_field_name = build_tree_field_name(tree_prefix);
-    let mut tree_field = build_tree_field(tree_field_name.as_slice(), &struct_ident);
+    let tree_field_name = build_tree_field_name(tree_prefix);
+    let tree_field = build_tree_field(tree_field_name.as_slice(), &struct_ident);
     // 合并公共字段
     struct_base_fields.extend_from_slice(tree_field.as_slice());
     let struct_fields = parse_struct_fields(&struct_input_token);

@@ -11,7 +11,7 @@ pub(crate) fn marco_rdbc_bean(_: TokenStream, model_token: TokenStream) -> Token
     let struct_ident = &struct_input_token.ident;
     let struct_attrs = &struct_input_token.attrs.as_slice();
     // 基础字段
-    let mut struct_base_field_name = util::build_base_field_name();
+    let struct_base_field_name = util::build_base_field_name();
     let mut struct_base_fields = util::build_base_field();
     let struct_fields = parse_struct_fields(&struct_input_token);
     for field in struct_fields {

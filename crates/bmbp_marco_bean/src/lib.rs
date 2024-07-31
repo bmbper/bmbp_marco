@@ -16,7 +16,6 @@ pub fn bean(bean_meta_token: TokenStream, bean_struct_token: TokenStream) -> Tok
 ///
 #[proc_macro_attribute]
 pub fn tree_bean(bean_meta_token: TokenStream, bean_struct_token: TokenStream) -> TokenStream {
-    println!("==============》树形bean生成开始==============={}", "");
     tree_bean::marco_tree_bean(bean_meta_token, bean_struct_token)
 }
 /// rdbc_bean 增加基础字段 并设置get set 方法
