@@ -45,22 +45,26 @@ mod tree_bean;
 pub fn bean(bean_meta_token: TokenStream, bean_struct_token: TokenStream) -> TokenStream {
     bean::marco_bean(bean_meta_token, bean_struct_token)
 }
-///    tree_bean(organ)
-///    增加指定的字段：
-///     `organ_code`、`organ_name`、`organ_code_path`、`organ_code_name`、`organ_parent_code`、`organ_tree_grade`、`organ_leaf`
-///     `organ_type`、`organ_children`
-///    ## example
-///    ```rust
-///     #[tree_bean(organ)]
-///     pub struct Demo{
-///         name:String
-///     }
-///    ````
-///    expand to:
+/// tree_bean(organ)
 ///
-///     ```rust
+/// 增加指定的字段：
 ///
+///     `organ_code`、`organ_name`、`organ_code_path`、`organ_code_name`、`organ_parent_code`、
+///     `organ_tree_grade`、`organ_leaf`、 `organ_type`、`organ_children`
 ///
+/// ## example
+///
+///```rust
+/// #[tree_bean(organ)]
+/// pub struct Demo{
+///   name:String
+/// }
+///
+///````
+///
+///expand to:
+///
+///```rust
 /// #[derive(Default, Debug, Clone, Serialize, Deserialize)]
 /// #[serde(rename_all = "camelCase")]
 /// #[serde(default)]
@@ -170,7 +174,7 @@ pub fn bean(bean_meta_token: TokenStream, bean_struct_token: TokenStream) -> Tok
 ///        &mut self.organ_children
 ///    }
 /// }
-///     ```
+///```
 ///
 #[proc_macro_attribute]
 pub fn tree_bean(bean_meta_token: TokenStream, bean_struct_token: TokenStream) -> TokenStream {
