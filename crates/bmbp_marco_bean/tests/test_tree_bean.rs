@@ -4,9 +4,7 @@ pub fn test_bean() {
     use serde::Deserialize;
     use serde::Serialize;
     #[tree_bean(organ)]
-    pub struct TestTreeBean {
-        name: Option<String>,
-    }
-    let bean = TestTreeBean::new();
+    pub struct Demo {}
+    let bean = Demo::new();
     assert_eq!(bean.organ_name.is_none(), true);
 }
