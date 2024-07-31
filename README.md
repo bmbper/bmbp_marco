@@ -2,7 +2,7 @@
 ## bmbp_marco_bean
 
 * **bean**
-```
+```rust
 #[bean]
 pub struct Demo {
     name: String,
