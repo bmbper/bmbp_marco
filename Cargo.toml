@@ -12,8 +12,8 @@ homepage = "https://github.com/bmbper/bmbp_marco"
 repository = "https://github.com/bmbper/bmbp_marco"
 documentation = "https://github.com/bmbper/bmbp_marco"
 [workspace.dependencies]
-bmbp_marco_util = { version = "0.0.2", path = "crates/bmbp_marco_util" }
-bmbp_marco_bean = { version = "0.0.3", path = "crates/bmbp_marco_bean" }
+bmbp_marco_util = { version = "0.0.4", path = "crates/bmbp_marco_util" }
+bmbp_marco_bean = { version = "0.0.4", path = "crates/bmbp_marco_bean" }
 bmbp_marco_rdbc = { version = "0.0.2", path = "crates/bmbp_marco_rdbc" }
 bmbp_marco_curd = { version = "0.0.2", path = "crates/bmbp_marco_curd" }
 bmbp_rdbc_orm = "0.2.1"
