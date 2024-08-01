@@ -1,7 +1,7 @@
 use proc_macro2::{Ident, TokenStream};
-use quote::{format_ident, quote, ToTokens};
+use quote::{format_ident, quote};
 use syn::__private::TokenStream2;
-use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability};
+use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability, Type, TypePath};
 
 /// parse_tree_meta 获取树型标记
 pub fn parse_tree_meta(meta_token: TokenStream) -> String {
@@ -50,6 +50,24 @@ pub fn build_struct_field_token(struct_fields: &[Field]) -> Vec<TokenStream2> {
     field_vec
 }
 
+pub fn build_struct_option_field_token(struct_fields: &[Field]) -> Vec<TokenStream2> {
+    let mut field_vec = vec![];
+    for field in struct_fields {
+        let field_ident = field.ident.as_ref().unwrap();
+        let field_type = &field.ty;
+        if field_has_option_type(field_type) {
+            field_vec.push(quote! {
+                 #field_ident: #field_type
+            });
+        } else {
+            field_vec.push(quote! {
+                 #field_ident: Option<#field_type>
+            });
+        }
+    }
+    field_vec
+}
+
 pub fn build_struct_props_method_token(struct_fields: &[Field]) -> Vec<TokenStream2> {
     let mut method_vec = vec![];
     for item in struct_fields {
@@ -68,6 +86,45 @@ pub fn build_struct_props_method_token(struct_fields: &[Field]) -> Vec<TokenStre
             }
             pub fn #get_mut_method_name(&mut self) -> &mut #field_type {
                 &mut self.#field_name
+            }
+        };
+        method_vec.push(method_token);
+    }
+    method_vec
+}
+pub fn build_struct_option_props_method_token(struct_fields: &[Field]) -> Vec<TokenStream2> {
+    let mut method_vec = vec![];
+    for item in struct_fields {
+        let field_name = item.ident.as_ref().unwrap();
+        let set_method_name = format_ident!("set_{}", field_name);
+        let get_method_name = format_ident!("get_{}", field_name);
+        let get_mut_method_name = format_ident!("get_mut_{}", field_name);
+        let field_type = &item.ty;
+        let method_token = if field_has_option_type(field_type) {
+            quote! {
+                pub fn #set_method_name(&mut self, value: #field_type) -> &mut Self {
+                    self.#field_name = value;
+                    self
+                }
+                pub fn #get_method_name(&self) -> &#field_type {
+                    &self.#field_name
+                }
+                pub fn #get_mut_method_name(&mut self) -> &mut #field_type {
+                    &mut self.#field_name
+                }
+            }
+        } else {
+            quote! {
+                pub fn #set_method_name(&mut self, value: Option<#field_type>) -> &mut Self {
+                    self.#field_name = value;
+                    self
+                }
+                pub fn #get_method_name(&self) -> &Option<#field_type> {
+                    &self.#field_name
+                }
+                pub fn #get_mut_method_name(&mut self) -> &mut Option<#field_type> {
+                    &mut self.#field_name
+                }
             }
         };
         method_vec.push(method_token);
@@ -158,4 +215,14 @@ pub fn build_tree_field(filed_names: &[String], struct_name: &Ident) -> Vec<Fiel
         field_vec.push(field)
     }
     field_vec
+}
+pub fn field_has_option_type(field_type: &Type) -> bool {
+    if let Type::Path(TypePath { path, .. }) = field_type {
+        if path.segments.len() == 1 {
+            if path.segments[0].ident.to_string() == "Option" {
+                return true;
+            }
+        }
+    }
+    false
 }
