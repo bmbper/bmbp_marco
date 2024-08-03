@@ -1,34 +1,12 @@
-use syn::parse::Parse;
 use syn::{Expr, Lit, Meta, MetaNameValue, Token};
+use syn::parse::Parse;
 use crate::old::utils::camel_to_snake;
-
 #[derive(Debug, Default, Clone)]
-pub struct RdbcOrmMeta {
-    table_name: Option<String>,
-    tree_prefix: Option<String>,
+pub struct RdbcTableTreeMeta {
+    table: Option<String>,
+    tree: Option<String>,
 }
-
-impl RdbcOrmMeta {
-    pub fn new(table_name: String, tree_prefix: String) -> Self {
-        RdbcOrmMeta {
-            table_name: Some(table_name),
-            tree_prefix: Some(tree_prefix),
-        }
-    }
-    pub fn get_table_name(&self) -> Option<String> {
-        self.table_name.clone()
-    }
-    pub fn get_tree_prefix(&self) -> Option<String> {
-        self.tree_prefix.clone()
-    }
-    pub fn set_table_name(&mut self, table_name: String) {
-        self.table_name = Some(table_name);
-    }
-    pub fn set_tree_prefix(&mut self, tree_prefix: String) {
-        self.tree_prefix = Some(tree_prefix);
-    }
-}
-impl Parse for RdbcOrmMeta {
+impl Parse for RdbcTableTreeMeta {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
         // NameValue的赋值函数
         let set_token_value = |token: &mut Option<String>, value: MetaNameValue| {
@@ -53,9 +31,9 @@ impl Parse for RdbcOrmMeta {
         let mut others = Vec::new();
 
         if input.is_empty() {
-            return Ok(RdbcOrmMeta {
-                table_name,
-                tree_prefix,
+            return Ok(RdbcTableTreeMeta {
+                table:table_name,
+                tree:tree_prefix,
             });
         }
         while !input.is_empty() {
@@ -95,9 +73,10 @@ impl Parse for RdbcOrmMeta {
         if let Some(tree) = tree_prefix {
             tree_prefix = Some(tree.to_lowercase());
         }
-        Ok(RdbcOrmMeta {
-            table_name,
-            tree_prefix,
+        Ok(RdbcTableTreeMeta {
+            table:table_name,
+            tree:tree_prefix,
         })
     }
 }
+

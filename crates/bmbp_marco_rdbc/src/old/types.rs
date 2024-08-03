@@ -1,4 +1,3 @@
-use crate::utils::camel_to_snake;
 use syn::parse::Parse;
 use syn::{Expr, Field, Lit, Meta, MetaNameValue, Token};
 

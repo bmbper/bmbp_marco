@@ -4,13 +4,10 @@ use quote::{format_ident, quote, ToTokens};
 use syn::parse::Parser;
 use syn::{parse_macro_input, parse_quote, DeriveInput, Field};
 
-use crate::consts::*;
 use crate::meta::RdbcOrmMeta;
-use crate::utils::{
-    build_base_struct_token, build_base_tree_struct_token, build_struct_field_cache,
-    camel_to_snake, field_has_attribute_args, field_has_option_type, filter_field_by_marco_attrs,
-    parse_field_slice_valid_meta, parse_filed_from_struct, parse_query_meta,
-};
+use crate::old::consts::{ATTRS_QUERY, ATTRS_RDBC_SKIP, RDBC_TREE_CHILDREN, RDBC_TREE_CODE, RDBC_TREE_CODE_PATH, RDBC_TREE_NAME, RDBC_TREE_NAME_PATH, RDBC_TREE_NODE_GRADE, RDBC_TREE_PARENT_CODE};
+use crate::old::utils::{build_base_struct_token, build_base_tree_struct_token, build_struct_field_cache, camel_to_snake, field_has_attribute_args, field_has_option_type, filter_field_by_marco_attrs, parse_field_slice_valid_meta, parse_filed_from_struct, parse_query_meta};
+
 
 pub(crate) fn rdbc_model(meta_token: TokenStream, model_token: TokenStream) -> TokenStream {
     // 获取结构体名称

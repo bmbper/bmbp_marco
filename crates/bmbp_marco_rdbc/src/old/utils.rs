@@ -1,4 +1,4 @@
-use crate::types::{ValidMeta, ValidRule, ValidRuleMethod};
+use crate::old::types::{ValidMeta, ValidRule, ValidRuleMethod};
 use bmbp_rdbc::RdbcValidMeta;
 use proc_macro::TokenStream;
 use quote::{format_ident, quote, ToTokens};

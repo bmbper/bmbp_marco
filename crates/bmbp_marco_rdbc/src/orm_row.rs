@@ -1,5 +1,3 @@
-use crate::consts::ATTRS_RDBC_SKIP;
-use crate::utils::field_has_attribute_args;
 use bmbp_marco_util::util;
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
