@@ -7,6 +7,7 @@ use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability, Type, Typ
 pub fn parse_tree_meta(meta_token: TokenStream) -> String {
     meta_token.to_string().replace("\"", "")
 }
+
 pub fn parse_struct_fields(struct_input: &DeriveInput) -> Vec<Field> {
     let mut field_vec = vec![];
     match &struct_input.data {
@@ -92,6 +93,7 @@ pub fn build_struct_props_method_token(struct_fields: &[Field]) -> Vec<TokenStre
     }
     method_vec
 }
+
 pub fn build_struct_option_props_method_token(struct_fields: &[Field]) -> Vec<TokenStream2> {
     let mut method_vec = vec![];
     for item in struct_fields {
@@ -171,6 +173,7 @@ pub fn build_base_field_name() -> Vec<String> {
         "data_sign".to_string(),
     ]
 }
+
 pub fn build_base_field() -> Vec<Field> {
     let field_names = build_base_field_name();
     let mut field_vec = vec![];
@@ -193,6 +196,7 @@ pub fn build_base_field() -> Vec<Field> {
     }
     field_vec
 }
+
 pub fn build_tree_field(filed_names: &[String], struct_name: &Ident) -> Vec<Field> {
     let mut field_vec = vec![];
     for item in filed_names {
@@ -216,6 +220,7 @@ pub fn build_tree_field(filed_names: &[String], struct_name: &Ident) -> Vec<Fiel
     }
     field_vec
 }
+
 pub fn field_has_option_type(field_type: &Type) -> bool {
     if let Type::Path(TypePath { path, .. }) = field_type {
         if path.segments.len() == 1 {
@@ -223,6 +228,13 @@ pub fn field_has_option_type(field_type: &Type) -> bool {
                 return true;
             }
         }
+    }
+    false
+}
+
+pub fn field_has_attrs_ident(field: &Field, attrs: &str) -> bool {
+    for attr_item in field.attrs.iter() {
+        return attr_item.path().is_ident(attrs);
     }
     false
 }
