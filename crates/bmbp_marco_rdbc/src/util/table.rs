@@ -26,7 +26,7 @@ pub(crate) fn build_table_name(table_tree_meta: &RdbcTableTreeMeta, struct_ident
     }
 }
 
-pub(crate) fn build_struct_table_token(struct_ident: &Ident, table_name: &String, struct_fields: &[Field]) -> TokenStream {
+pub(crate) fn build_struct_table_token(struct_ident: &Ident, table_name: &String, struct_fields: &[Field]) -> TokenStream2 {
     let struct_column = build_struct_column_enum(struct_ident,struct_fields);
     let impl_rdbc_ident = build_impl_rdbc_ident(struct_ident, struct_fields);
     let impl_rdbc_table = build_impl_rdbc_table(struct_ident, &table_name, struct_fields);

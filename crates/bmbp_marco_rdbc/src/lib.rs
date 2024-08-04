@@ -1,8 +1,5 @@
 use proc_macro::TokenStream;
-
-
 mod meta;
-mod orm_row;
 mod table_bean;
 mod table_bean_orm;
 mod table_rdbc_bean;
