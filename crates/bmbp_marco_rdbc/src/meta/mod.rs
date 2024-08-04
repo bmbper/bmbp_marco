@@ -1,5 +1,3 @@
-mod orm;
 mod rdbc;
-mod model;
 
-pub use orm::RdbcOrmMeta;
+pub(crate) use rdbc::RdbcTableTreeMeta;

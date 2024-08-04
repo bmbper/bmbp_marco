@@ -18,6 +18,7 @@ bmbp_marco_rdbc = { version = "0.0.2", path = "crates/bmbp_marco_rdbc" }
 bmbp_marco_curd = { version = "0.0.2", path = "crates/bmbp_marco_curd" }
 bmbp_rdbc_orm = "0.2.1"
 bmbp_rdbc = "0.2.1"
+bmbp_rdbc_type = "0.2.4"
 async-lock = "3.4.0"
 async-once-cell = "0.5.3"
 async-recursion = "1.1.1"

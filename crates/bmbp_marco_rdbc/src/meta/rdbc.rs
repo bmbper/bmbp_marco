@@ -1,10 +1,24 @@
+use case_style::CaseStyle;
 use syn::{Expr, Lit, Meta, MetaNameValue, Token};
 use syn::parse::Parse;
-use crate::old::utils::camel_to_snake;
 #[derive(Debug, Default, Clone)]
 pub struct RdbcTableTreeMeta {
     table: Option<String>,
     tree: Option<String>,
+}
+impl RdbcTableTreeMeta {
+    pub fn get_table(&self)->Option<&String>{
+         self.table.as_ref()
+    }
+    pub fn get_table_mut(&mut self)->Option<&mut String>{
+        self.table.as_mut()
+    }
+    pub fn get_tree(& self)->Option<& String>{
+        self.table.as_ref()
+    }
+    pub fn get_tree_mut(&mut self)->Option<&mut String>{
+        self.tree.as_mut()
+    }
 }
 impl Parse for RdbcTableTreeMeta {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
@@ -67,7 +81,7 @@ impl Parse for RdbcTableTreeMeta {
             }
         }
         if let Some(table) = table_name {
-            let snake_table = camel_to_snake(table.to_lowercase());
+            let snake_table = CaseStyle::guess(table).unwrap().to_snakecase().to_uppercase();
             table_name = Some(snake_table);
         }
         if let Some(tree) = tree_prefix {

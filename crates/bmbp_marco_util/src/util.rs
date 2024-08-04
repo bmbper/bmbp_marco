@@ -1,7 +1,9 @@
+use std::collections::HashSet;
 use proc_macro2::{Ident, TokenStream};
 use quote::{format_ident, quote};
 use syn::__private::TokenStream2;
 use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability, Type, TypePath};
+use crate::util;
 
 /// parse_tree_meta 获取树型标记
 pub fn parse_tree_meta(meta_token: TokenStream) -> String {
@@ -237,4 +239,24 @@ pub fn field_has_attrs_ident(field: &Field, attrs: &str) -> bool {
         return attr_item.path().is_ident(attrs);
     }
     false
+}
+
+pub fn build_field_name_set(fields:&[Field])->HashSet<String>{
+    let mut field_name_set = HashSet::new();
+    for item in fields {
+        if let Some(field_ident) = &item.ident {
+            field_name_set.insert(field_ident.to_string());
+        }
+    }
+    field_name_set
+}
+pub fn merge_struct_fields(mut struct_fields: Vec<Field>,from_fields:&[Field]) -> Vec<Field> {
+    let field_name_set = build_field_name_set(struct_fields.as_slice());
+    for field in from_fields {
+        let field_name = field.ident.as_ref().unwrap().to_string();
+        if !field_name_set.contains(&field_name) {
+            struct_fields.push(field.clone());
+        }
+    }
+    struct_fields
 }
