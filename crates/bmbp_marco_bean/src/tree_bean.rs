@@ -7,6 +7,7 @@ pub(crate) fn marco_tree_bean(meta_token: TokenStream, model_token: TokenStream)
     let struct_input_token = parse_macro_input!(model_token as DeriveInput);
     let struct_ident = &struct_input_token.ident;
     let struct_attrs = struct_input_token.attrs.as_slice();
+    let struct_generics= &struct_input_token.generics;
     // 获取树型标记
     let tree_prefix = parse_tree_meta(meta_token.into());
     let tree_field_name = build_tree_field_name(tree_prefix);
@@ -19,6 +20,7 @@ pub(crate) fn marco_tree_bean(meta_token: TokenStream, model_token: TokenStream)
     build_struct_token(
         struct_ident,
         struct_attrs,
+        struct_generics,
         struct_field_token,
         struct_method_token,
     )
@@ -31,6 +33,7 @@ pub(crate) fn marco_option_tree_bean(
     // 获取结构体名称
     let struct_input_token = parse_macro_input!(model_token as DeriveInput);
     let struct_ident = &struct_input_token.ident;
+    let struct_generics= &struct_input_token.generics;
     let struct_attrs = struct_input_token.attrs.as_slice();
     // 获取树型标记
     let tree_prefix = parse_tree_meta(meta_token.into());
@@ -44,6 +47,7 @@ pub(crate) fn marco_option_tree_bean(
     build_struct_token(
         struct_ident,
         struct_attrs,
+        struct_generics,
         struct_field_token,
         struct_method_token,
     )

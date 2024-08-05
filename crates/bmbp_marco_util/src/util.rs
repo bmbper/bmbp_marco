@@ -1,8 +1,8 @@
 use std::collections::HashSet;
 use proc_macro2::{Ident, TokenStream};
-use quote::{format_ident, quote};
+use quote::{format_ident, quote, ToTokens};
 use syn::__private::TokenStream2;
-use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability, Type, TypePath};
+use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability, Type, TypePath, Generics};
 use crate::util;
 
 /// parse_tree_meta 获取树型标记
@@ -139,18 +139,29 @@ pub fn build_struct_option_props_method_token(struct_fields: &[Field]) -> Vec<To
 pub fn build_struct_token(
     struct_ident: &Ident,
     struct_attrs: &[Attribute],
+    struct_generics: &Generics,
     struct_field_token: Vec<TokenStream2>,
     struct_method_token: Vec<TokenStream2>,
 ) -> TokenStream {
+    let generics_param_token = util::build_generics_param_token(struct_generics);
+    let generics_where_token = util::build_generics_where_token(struct_generics);
+    let attrs_token = if struct_attrs.is_empty() {
+        quote! {
+            #[derive(Default, Debug, Clone, Serialize, Deserialize)]
+            #[serde(rename_all = "camelCase")]
+            #[serde(default)]
+        }
+    } else {
+        quote! {
+            #(#struct_attrs)*
+        }
+    };
     let bean_token = quote! {
-        #[derive(Default, Debug, Clone, Serialize, Deserialize)]
-        #[serde(rename_all = "camelCase")]
-        #[serde(default)]
-        #(#struct_attrs)*
-        pub struct #struct_ident {
+        #attrs_token
+        pub struct #struct_ident  #generics_param_token #generics_where_token {
                #(#struct_field_token,)*
         }
-        impl #struct_ident {
+        impl #generics_param_token #struct_ident #generics_param_token #generics_where_token {
             pub fn new() -> Self {
                 Self::default()
             }
@@ -158,6 +169,26 @@ pub fn build_struct_token(
         }
     };
     bean_token.into()
+}
+
+fn build_generics_param_token(struct_generics: &Generics) -> TokenStream {
+    let params_empty = struct_generics.params.is_empty();
+    if params_empty {
+        return quote! {};
+    }
+    let params = &struct_generics.params;
+    quote! {
+        <#params>
+    }
+}
+fn build_generics_where_token(struct_generics: &Generics) -> TokenStream {
+    if struct_generics.where_clause.is_none(){
+        return quote! {};
+    }
+    let where_clause     = &struct_generics.where_clause;
+    quote! {
+        #where_clause
+    }
 }
 
 pub fn build_base_field_name() -> Vec<String> {
@@ -241,7 +272,7 @@ pub fn field_has_attrs_ident(field: &Field, attrs: &str) -> bool {
     false
 }
 
-pub fn build_field_name_set(fields:&[Field])->HashSet<String>{
+pub fn build_field_name_set(fields: &[Field]) -> HashSet<String> {
     let mut field_name_set = HashSet::new();
     for item in fields {
         if let Some(field_ident) = &item.ident {
@@ -250,7 +281,8 @@ pub fn build_field_name_set(fields:&[Field])->HashSet<String>{
     }
     field_name_set
 }
-pub fn merge_struct_fields(mut struct_fields: Vec<Field>,from_fields:&[Field]) -> Vec<Field> {
+
+pub fn merge_struct_fields(mut struct_fields: Vec<Field>, from_fields: &[Field]) -> Vec<Field> {
     let field_name_set = build_field_name_set(struct_fields.as_slice());
     for field in from_fields {
         let field_name = field.ident.as_ref().unwrap().to_string();

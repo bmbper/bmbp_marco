@@ -9,6 +9,7 @@ pub(crate) fn marco_rdbc_bean(_: TokenStream, model_token: TokenStream) -> Token
     // 获取结构体名称
     let struct_input_token = parse_macro_input!(model_token as DeriveInput);
     let struct_ident = &struct_input_token.ident;
+    let struct_generics= &struct_input_token.generics;
     let struct_attrs = &struct_input_token.attrs.as_slice();
     let mut struct_fields = parse_struct_fields(&struct_input_token);
     let mut struct_base_fields = build_base_field();
@@ -19,6 +20,7 @@ pub(crate) fn marco_rdbc_bean(_: TokenStream, model_token: TokenStream) -> Token
     util::build_struct_token(
         struct_ident,
         struct_attrs,
+        struct_generics,
         struct_field_token,
         struct_method_token,
     )
@@ -29,7 +31,7 @@ pub(crate) fn marco_rdbc_bean_option(_: TokenStream, model_token: TokenStream) -
     let struct_input_token = parse_macro_input!(model_token as DeriveInput);
     let struct_ident = &struct_input_token.ident;
     let struct_attrs = &struct_input_token.attrs.as_slice();
-
+    let struct_generics= &struct_input_token.generics;
     // 基础字段
     let mut struct_fields = parse_struct_fields(&struct_input_token);
     let struct_base_fields = build_base_field();
@@ -40,6 +42,7 @@ pub(crate) fn marco_rdbc_bean_option(_: TokenStream, model_token: TokenStream) -
     util::build_struct_token(
         struct_ident,
         struct_attrs,
+        struct_generics,
         struct_field_token,
         struct_method_token,
     )

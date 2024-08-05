@@ -10,7 +10,8 @@ pub(crate) fn marco_table_rdbc_tree_bean(meta_token: TokenStream, struct_token: 
     let rdbc_meta = parse_macro_input!(meta_token as RdbcTableTreeMeta);
     let temp_struct_token = struct_token.clone();
     let struct_input = parse_macro_input!(temp_struct_token as syn::DeriveInput);
-    let struct_ident = &struct_input.ident;
+   let struct_ident = &struct_input.ident;
+    let struct_generics = &struct_input.generics;
     let table_name = build_table_name(&rdbc_meta, struct_ident);
     let struct_attrs = &struct_input.attrs.as_slice();
 
@@ -29,7 +30,8 @@ pub(crate) fn marco_table_rdbc_tree_bean(meta_token: TokenStream, struct_token: 
     let struct_method_token = build_struct_props_method_token(struct_fields.as_slice());
     let token = build_struct_token(
         struct_ident,
-        struct_attrs,
+       struct_attrs,
+        struct_generics,
         struct_field_token,
         struct_method_token,
     );
@@ -45,7 +47,8 @@ pub(crate) fn marco_table_rdbc_tree_bean_option(meta_token: TokenStream, struct_
     let rdbc_meta = parse_macro_input!(meta_token as RdbcTableTreeMeta);
     let temp_struct_token = struct_token.clone();
     let struct_input = parse_macro_input!(temp_struct_token as syn::DeriveInput);
-    let struct_ident = &struct_input.ident;
+   let struct_ident = &struct_input.ident;
+    let struct_generics = &struct_input.generics;
     let table_name = build_table_name(&rdbc_meta, struct_ident);
     let struct_attrs = &struct_input.attrs.as_slice();
 
@@ -64,7 +67,8 @@ pub(crate) fn marco_table_rdbc_tree_bean_option(meta_token: TokenStream, struct_
     let struct_method_token = build_struct_option_props_method_token(struct_fields.as_slice());
     let token = build_struct_token(
         struct_ident,
-        struct_attrs,
+       struct_attrs,
+        struct_generics,
         struct_field_token,
         struct_method_token,
     );
