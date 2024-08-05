@@ -1,6 +1,6 @@
 [package]
 name = "bmbp_marco_util"
-version = "0.0.5"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 description.workspace = true

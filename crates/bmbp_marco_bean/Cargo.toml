@@ -1,6 +1,6 @@
 [package]
 name = "bmbp_marco_bean"
-version = "0.0.4"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 description.workspace = true
@@ -8,13 +8,13 @@ license.workspace = true
 readme.workspace = true
 homepage.workspace = true
 repository.workspace = true
-documentation ="https://docs.rs/bmbp_marco_bean/latest/bmbp_marco_bean"
+documentation = "https://docs.rs/bmbp_marco_bean/latest/bmbp_marco_bean"
 [lib]
 proc-macro = true
 [dependencies]
-bmbp_marco_util =  { workspace = true }
+bmbp_marco_util = { workspace = true }
 quote = { workspace = true }
 syn = { workspace = true }
-proc-macro2 =  { workspace = true }
+proc-macro2 = { workspace = true }
 case_style = { workspace = true }
 serde = { workspace = true }
