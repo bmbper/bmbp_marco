@@ -24,7 +24,6 @@ pub(crate) fn marco_bean(_: TokenStream, model_token: TokenStream) -> TokenStrea
         struct_method_token,
     )
     .into();
-    println!("AAAAAAAAA=====>{}", token.to_string());
     token
 }
 
