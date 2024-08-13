@@ -1,7 +1,7 @@
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input};
-use bmbp_marco_util::{build_struct_field_token, build_struct_option_field_token, build_struct_props_method_token, build_struct_token, parse_struct_fields, util};
+use bmbp_marco_util::{build_struct_field_token, build_struct_option_field_token, build_struct_props_method_token, build_struct_token, parse_struct_fields};
 use crate::meta::RdbcTableTreeMeta;
 use crate::util::{build_struct_table_token, build_table_name};
 

@@ -14,7 +14,7 @@ impl RdbcTableTreeMeta {
         self.table.as_mut()
     }
     pub fn get_tree(& self)->Option<& String>{
-        self.table.as_ref()
+        self.tree.as_ref()
     }
     pub fn get_tree_mut(&mut self)->Option<&mut String>{
         self.tree.as_mut()
@@ -36,14 +36,12 @@ impl Parse for RdbcTableTreeMeta {
                 }
             }
         };
-
         // 表名称
         let mut table_name = None;
         // 树名称
         let mut tree_prefix = None;
         // 其它名称
         let mut others = Vec::new();
-
         if input.is_empty() {
             return Ok(RdbcTableTreeMeta {
                 table:table_name,
@@ -72,7 +70,6 @@ impl Parse for RdbcTableTreeMeta {
                 input.parse::<Token![,]>()?;
             }
         }
-
         for item in others {
             if table_name.is_none() {
                 table_name = Some(item);

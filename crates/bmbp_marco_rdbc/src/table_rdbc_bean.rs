@@ -1,6 +1,6 @@
 use proc_macro::TokenStream;
 use quote::quote;
-use syn::{Field, parse_macro_input};
+use syn::{ parse_macro_input};
 use bmbp_marco_util::{build_base_field, build_struct_field_token, build_struct_option_field_token, build_struct_option_props_method_token, build_struct_props_method_token, build_struct_token, merge_struct_fields, parse_struct_fields};
 use crate::meta::RdbcTableTreeMeta;
 use crate::util::{build_struct_table_token, build_table_name};
@@ -14,7 +14,7 @@ pub(crate) fn marco_table_rdbc_bean(meta_token: TokenStream, struct_token: Token
     let table_name = build_table_name(&rdbc_meta, struct_ident);
     let struct_attrs = &struct_input.attrs.as_slice();
     let mut struct_fields = parse_struct_fields(&struct_input);
-    let mut struct_base_fields = build_base_field();
+    let  struct_base_fields = build_base_field();
     struct_fields = merge_struct_fields(struct_fields,struct_base_fields.as_slice());
 
     let struct_field_token = build_struct_field_token(struct_fields.as_slice());
@@ -45,7 +45,7 @@ pub(crate) fn marco_table_rdbc_bean_option(meta_token: TokenStream, struct_token
     let table_name = build_table_name(&rdbc_meta, struct_ident);
     let struct_attrs = &struct_input.attrs.as_slice();
     let mut struct_fields = parse_struct_fields(&struct_input);
-    let mut struct_base_fields = build_base_field();
+    let  struct_base_fields = build_base_field();
     struct_fields = merge_struct_fields(struct_fields,struct_base_fields.as_slice());
 
     let struct_field_token = build_struct_option_field_token(struct_fields.as_slice());

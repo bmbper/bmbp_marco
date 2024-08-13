@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 use proc_macro2::{Ident, TokenStream};
-use quote::{format_ident, quote, ToTokens};
+use quote::{format_ident, quote};
 use syn::__private::TokenStream2;
 use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability, Type, TypePath, Generics};
 use crate::util;
@@ -181,11 +181,12 @@ fn build_generics_param_token(struct_generics: &Generics) -> TokenStream {
         <#params>
     }
 }
+
 fn build_generics_where_token(struct_generics: &Generics) -> TokenStream {
-    if struct_generics.where_clause.is_none(){
+    if struct_generics.where_clause.is_none() {
         return quote! {};
     }
-    let where_clause     = &struct_generics.where_clause;
+    let where_clause = &struct_generics.where_clause;
     quote! {
         #where_clause
     }
@@ -231,10 +232,22 @@ pub fn build_base_field() -> Vec<Field> {
 }
 
 pub fn build_tree_field(filed_names: &[String], struct_name: &Ident) -> Vec<Field> {
+    build_tree_field_with_children_skip(filed_names, struct_name, false)
+}
+pub fn build_tree_field_for_orm(filed_names: &[String], struct_name: &Ident) -> Vec<Field> {
+    build_tree_field_with_children_skip(filed_names, struct_name, true)
+}
+
+pub fn build_tree_field_with_children_skip(filed_names: &[String], struct_name: &Ident, skip_children: bool) -> Vec<Field> {
     let mut field_vec = vec![];
+
     for item in filed_names {
+        let mut attrs = vec![];
         let field_ident = format_ident!("{}", item);
         let field_type = if item.ends_with("_children") {
+            if skip_children {
+                attrs.push(parse_quote!(#[skip]));
+            }
             parse_quote!(Option<Vec<#struct_name>>)
         } else if item.ends_with("_grade") {
             parse_quote!(Option<u32>)
@@ -242,7 +255,7 @@ pub fn build_tree_field(filed_names: &[String], struct_name: &Ident) -> Vec<Fiel
             parse_quote!(Option<String>)
         };
         let field = Field {
-            attrs: vec![],
+            attrs: attrs.clone(),
             vis: syn::Visibility::Inherited,
             mutability: FieldMutability::None,
             ident: Some(field_ident),

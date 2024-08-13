@@ -2,7 +2,7 @@
 members = ["crates/*"]
 resolver = "2"
 [workspace.package]
-version = "0.0.6"
+version = "0.0.7"
 edition = "2021"
 authors = ["bmbp<rs_bmbp.163.com>"]
 description = "BMBP Marco"
@@ -12,10 +12,10 @@ homepage = "https://github.com/bmbper/bmbp_marco"
 repository = "https://github.com/bmbper/bmbp_marco"
 documentation = "https://github.com/bmbper/bmbp_marco"
 [workspace.dependencies]
-bmbp_marco_util = { version = "0.0.6", path = "crates/bmbp_marco_util" }
-bmbp_marco_bean = { version = "0.0.6", path = "crates/bmbp_marco_bean" }
-bmbp_marco_rdbc = { version = "0.0.6", path = "crates/bmbp_marco_rdbc" }
-bmbp_marco_curd = { version = "0.0.6", path = "crates/bmbp_marco_curd" }
+bmbp_marco_util = { version = "0.0.7", path = "crates/bmbp_marco_util" }
+bmbp_marco_bean = { version = "0.0.7", path = "crates/bmbp_marco_bean" }
+bmbp_marco_rdbc = { version = "0.0.7", path = "crates/bmbp_marco_rdbc" }
+bmbp_marco_curd = { version = "0.0.7", path = "crates/bmbp_marco_curd" }
 bmbp_rdbc_orm = "0.2.1"
 bmbp_rdbc = "0.2.1"
 bmbp_rdbc_type="0.2.4"

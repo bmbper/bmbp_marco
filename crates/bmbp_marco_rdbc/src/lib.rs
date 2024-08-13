@@ -124,7 +124,6 @@ pub fn table_rdbc_tree_bean_orm(bean_meta_token: TokenStream, bean_struct_token:
 #[proc_macro_attribute]
 pub fn table_rdbc_tree_bean_orm_option(bean_meta_token: TokenStream, bean_struct_token: TokenStream) -> TokenStream {
     let token = table_rdbc_tree_bean_orm::table_rdbc_tree_bean_orm_option(bean_meta_token, bean_struct_token);
-    println!("==>{}", token.to_string());
     token
 }
 

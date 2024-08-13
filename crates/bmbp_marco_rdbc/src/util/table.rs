@@ -27,7 +27,7 @@ pub(crate) fn build_table_name(table_tree_meta: &RdbcTableTreeMeta, struct_ident
 }
 
 pub(crate) fn build_struct_table_token(struct_ident: &Ident, table_name: &String, struct_fields: &[Field]) -> TokenStream2 {
-    let struct_column = build_struct_column_enum(struct_ident,struct_fields);
+    let struct_column = build_struct_column_enum(struct_ident, struct_fields);
     let impl_rdbc_ident = build_impl_rdbc_ident(struct_ident, struct_fields);
     let impl_rdbc_table = build_impl_rdbc_table(struct_ident, &table_name, struct_fields);
     let token = quote! {
@@ -66,7 +66,7 @@ pub(crate) fn build_impl_rdbc_ident(struct_ident: &Ident, fields: &[Field]) -> T
 
 pub(crate) fn build_impl_rdbc_table(struct_ident: &Ident, table_name: &String, fields: &[Field]) -> TokenStream2 {
     let struct_columns_ident = format_ident!("{}Column", struct_ident);
-    let mut primary_key = build_primary_key(fields);
+    let primary_key = build_primary_key(fields);
     let mut key_method = vec![];
     if !primary_key.is_empty() {
         if primary_key.len() == 1 {
@@ -92,7 +92,7 @@ pub(crate) fn build_impl_rdbc_table(struct_ident: &Ident, table_name: &String, f
         }
     };
 
-    let mut match_column_fields = build_impl_rdbc_table_field_ident(fields);
+    let match_column_fields = build_impl_rdbc_table_field_ident(fields);
     let token = quote! {
         impl RdbcTable for #struct_ident {
             fn get_table() -> impl RdbcIdent {
@@ -139,8 +139,10 @@ fn parse_struct_table_name(meta: &TokenStream, struct_ident: &Ident) -> String {
 }
 
 fn build_struct_column_enum_field_ident(fields: &[Field]) -> Vec<Ident> {
+    println!("aaaa=>{:?}",fields.len());
     let mut column_fields = vec![];
     for field in fields {
+        println!("{:?}",field);
         if field_has_attrs_ident(field, "skip") {
             continue;
         }
