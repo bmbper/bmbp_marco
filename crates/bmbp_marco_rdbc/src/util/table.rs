@@ -249,13 +249,13 @@ pub fn build_impl_tree_token(
                 self.dict_parent_code = parent_code;
                 self
             }
-            fn get_children(&self) -> &Option<Vec<struct_ident>> {
+            fn get_children(&self) -> &Option<Vec<#struct_ident>> {
                 &self.#tree_children_code_field
             }
-            fn get_children_mut(&mut self) -> &mut Option<Vec<struct_ident>> {
+            fn get_children_mut(&mut self) -> &mut Option<Vec<#struct_ident>> {
                 &mut self.#tree_children_code_field
             }
-            fn set_children(&mut self, children: Option<Vec<struct_ident>>) -> &mut Self {
+            fn set_children(&mut self, children: Option<Vec<#struct_ident>>) -> &mut Self {
                 self.#tree_children_code_field = children;
                 self
             }

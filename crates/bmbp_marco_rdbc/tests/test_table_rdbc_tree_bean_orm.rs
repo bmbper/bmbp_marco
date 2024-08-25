@@ -7,6 +7,7 @@ pub fn test_table_rdbc_tree_bean_orm_option() {
     use bmbp_rdbc_type::RdbcTable;
     use serde::Deserialize;
     use serde::Serialize;
+    use bmbp_util::BmbpTree;
     #[table_rdbc_tree_bean_orm_option(table=BMBP_TABLE,tree=dict)]
     pub struct BmbpDict {
         dict_value: Option<String>,
