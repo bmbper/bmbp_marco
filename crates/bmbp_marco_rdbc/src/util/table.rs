@@ -239,14 +239,14 @@ pub fn build_impl_tree_token(
                 &self.#tree_code_field
             }
             fn set_code(&mut self, code: Option<String>) -> &mut Self {
-                self.dict_code = code;
+                self.#tree_code_field = code;
                 self
             }
             fn get_parent_code(&self) -> &Option<String> {
                 &self.#tree_parent_code_field
             }
             fn set_parent_code(&mut self, parent_code: Option<String>) -> &mut Self {
-                self.dict_parent_code = parent_code;
+                self.#tree_parent_code_field = parent_code;
                 self
             }
             fn get_children(&self) -> &Option<Vec<#struct_ident>> {

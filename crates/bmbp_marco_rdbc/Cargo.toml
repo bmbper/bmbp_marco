@@ -1,6 +1,6 @@
 [package]
 name = "bmbp_marco_rdbc"
-version.workspace = true
+version = "0.0.10"
 edition.workspace = true
 authors.workspace = true
 description.workspace = true
