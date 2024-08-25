@@ -1,8 +1,8 @@
+use bmbp_marco_util::{field_has_attrs_ident, field_has_option_type};
 use proc_macro2::{Ident, TokenStream};
 use quote::{format_ident, quote};
-use syn::{Field};
+use syn::Field;
 use syn::__private::TokenStream2;
-use bmbp_marco_util::{field_has_attrs_ident, field_has_option_type};
 
 pub fn build_impl_orm_row_token(struct_ident: &Ident, struct_fields: &[Field]) -> TokenStream {
     let mut field_set_value_vec: Vec<TokenStream2> = vec![];
@@ -10,7 +10,7 @@ pub fn build_impl_orm_row_token(struct_ident: &Ident, struct_fields: &[Field]) -
         let field_ident = field.ident.as_ref().unwrap();
         let field_name = field_ident.to_string();
         let field_method = format_ident!("set_{}", field_ident);
-        if field_has_attrs_ident(field, "skip"){
+        if field_has_attrs_ident(field, "skip") {
             continue;
         }
         let token = if field_has_option_type(&field.ty) {
@@ -40,4 +40,3 @@ pub fn build_impl_orm_row_token(struct_ident: &Ident, struct_fields: &[Field]) -
     };
     orm_row_token
 }
-

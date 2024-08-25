@@ -1,9 +1,9 @@
-use std::collections::HashSet;
+use crate::util;
 use proc_macro2::{Ident, TokenStream};
 use quote::{format_ident, quote};
+use std::collections::HashSet;
 use syn::__private::TokenStream2;
-use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability, Type, TypePath, Generics};
-use crate::util;
+use syn::{parse_quote, Attribute, DeriveInput, Field, FieldMutability, Generics, Type, TypePath};
 
 /// parse_tree_meta 获取树型标记
 pub fn parse_tree_meta(meta_token: TokenStream) -> String {
@@ -238,7 +238,11 @@ pub fn build_tree_field_for_orm(filed_names: &[String], struct_name: &Ident) -> 
     build_tree_field_with_children_skip(filed_names, struct_name, true)
 }
 
-pub fn build_tree_field_with_children_skip(filed_names: &[String], struct_name: &Ident, skip_children: bool) -> Vec<Field> {
+pub fn build_tree_field_with_children_skip(
+    filed_names: &[String],
+    struct_name: &Ident,
+    skip_children: bool,
+) -> Vec<Field> {
     let mut field_vec = vec![];
 
     for item in filed_names {

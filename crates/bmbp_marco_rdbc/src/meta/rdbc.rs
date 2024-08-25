@@ -1,22 +1,22 @@
 use case_style::CaseStyle;
-use syn::{Expr, Lit, Meta, MetaNameValue, Token};
 use syn::parse::Parse;
+use syn::{Expr, Lit, Meta, MetaNameValue, Token};
 #[derive(Debug, Default, Clone)]
 pub struct RdbcTableTreeMeta {
     table: Option<String>,
     tree: Option<String>,
 }
 impl RdbcTableTreeMeta {
-    pub fn get_table(&self)->Option<&String>{
-         self.table.as_ref()
+    pub fn get_table(&self) -> Option<&String> {
+        self.table.as_ref()
     }
-    pub fn get_table_mut(&mut self)->Option<&mut String>{
+    pub fn get_table_mut(&mut self) -> Option<&mut String> {
         self.table.as_mut()
     }
-    pub fn get_tree(& self)->Option<& String>{
+    pub fn get_tree(&self) -> Option<&String> {
         self.tree.as_ref()
     }
-    pub fn get_tree_mut(&mut self)->Option<&mut String>{
+    pub fn get_tree_mut(&mut self) -> Option<&mut String> {
         self.tree.as_mut()
     }
 }
@@ -44,8 +44,8 @@ impl Parse for RdbcTableTreeMeta {
         let mut others = Vec::new();
         if input.is_empty() {
             return Ok(RdbcTableTreeMeta {
-                table:table_name,
-                tree:tree_prefix,
+                table: table_name,
+                tree: tree_prefix,
             });
         }
         while !input.is_empty() {
@@ -78,16 +78,18 @@ impl Parse for RdbcTableTreeMeta {
             }
         }
         if let Some(table) = table_name {
-            let snake_table = CaseStyle::guess(table).unwrap().to_snakecase().to_uppercase();
+            let snake_table = CaseStyle::guess(table)
+                .unwrap()
+                .to_snakecase()
+                .to_uppercase();
             table_name = Some(snake_table);
         }
         if let Some(tree) = tree_prefix {
             tree_prefix = Some(tree.to_lowercase());
         }
         Ok(RdbcTableTreeMeta {
-            table:table_name,
-            tree:tree_prefix,
+            table: table_name,
+            tree: tree_prefix,
         })
     }
 }
-

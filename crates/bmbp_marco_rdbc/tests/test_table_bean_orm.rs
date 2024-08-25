@@ -1,5 +1,2 @@
-
 #[test]
-pub fn test_table() {
-   
-}
+pub fn test_table() {}
