@@ -24,7 +24,7 @@ pub(crate) fn marco_rdbc_tree_bean(
 
     // 获取树型标记
     let tree_prefix = parse_tree_meta(meta_token.into());
-    let tree_field_name = build_tree_field_name(tree_prefix);
+    let tree_field_name = build_tree_field_name(tree_prefix.clone());
     let tree_field = build_tree_field(tree_field_name.as_slice(), &struct_ident);
     // 合并公共字段
     struct_base_fields.extend_from_slice(tree_field.as_slice());
@@ -57,7 +57,7 @@ pub(crate) fn marco_rdbc_tree_bean_option(
     let struct_generics = &struct_input_token.generics;
     // 获取树型标记
     let tree_prefix = parse_tree_meta(meta_token.into());
-    let tree_field_name = build_tree_field_name(tree_prefix);
+    let tree_field_name = build_tree_field_name(tree_prefix.clone());
     let tree_field = build_tree_field(tree_field_name.as_slice(), &struct_ident);
     let mut struct_fields = parse_struct_fields(&struct_input_token);
     let struct_base_fields = build_base_field();

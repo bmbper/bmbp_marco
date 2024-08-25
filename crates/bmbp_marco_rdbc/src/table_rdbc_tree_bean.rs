@@ -25,7 +25,7 @@ pub(crate) fn marco_table_rdbc_tree_bean(
         Some(tree) => tree.clone(),
         None => "".to_string(),
     };
-    let tree_field_name = build_tree_field_name(tree_prefix);
+    let tree_field_name = build_tree_field_name(tree_prefix.clone());
     let tree_field = build_tree_field(tree_field_name.as_slice(), &struct_ident);
     let mut struct_fields = parse_struct_fields(&struct_input);
     let struct_base_fields = build_base_field();
@@ -69,7 +69,7 @@ pub(crate) fn marco_table_rdbc_tree_bean_option(
         Some(tree) => tree.clone(),
         None => "".to_string(),
     };
-    let tree_field_name = build_tree_field_name(tree_prefix);
+    let tree_field_name = build_tree_field_name(tree_prefix.clone());
     let tree_field = build_tree_field(tree_field_name.as_slice(), &struct_ident);
     let mut struct_fields = parse_struct_fields(&struct_input);
     let struct_base_fields = build_base_field();
