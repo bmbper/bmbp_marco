@@ -221,9 +221,9 @@ pub fn build_impl_tree_token(
     };
     let tree_code_field = format_ident!("{}", tree_code);
     let parent_code = if tree_prefix.is_empty() {
-        "code".to_string()
+        "parent_code".to_string()
     } else {
-        format!("{}_code", tree_prefix)
+        format!("{}_parent_code", tree_prefix)
     };
     let tree_parent_code_field = format_ident!("{}", parent_code);
     let children_code = if tree_prefix.is_empty() {
