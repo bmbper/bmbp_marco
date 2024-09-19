@@ -153,10 +153,8 @@ fn parse_struct_table_name(meta: &TokenStream, struct_ident: &Ident) -> String {
 }
 
 fn build_struct_column_enum_field_ident(fields: &[Field]) -> Vec<Ident> {
-    println!("aaaa=>{:?}", fields.len());
     let mut column_fields = vec![];
     for field in fields {
-        println!("{:?}", field);
         if field_has_attrs_ident(field, "skip") {
             continue;
         }

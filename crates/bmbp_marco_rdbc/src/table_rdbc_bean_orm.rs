@@ -58,7 +58,6 @@ pub(crate) fn table_rdbc_bean_orm_option(
     let mut struct_fields = parse_struct_fields(&struct_input);
     let struct_base_fields = build_base_field();
     struct_fields = merge_struct_fields(struct_fields, struct_base_fields.as_slice());
-    println!("================>{:#?}", rdbc_meta);
     let struct_field_token = build_struct_option_field_token(struct_fields.as_slice());
     let struct_method_token = build_struct_option_props_method_token(struct_fields.as_slice());
     let token = build_struct_token(

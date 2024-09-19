@@ -564,7 +564,6 @@ pub fn tree_bean_option(
 #[proc_macro_attribute]
 pub fn rdbc_bean(bean_meta_token: TokenStream, bean_struct_token: TokenStream) -> TokenStream {
     let token = rdbc_bean::marco_rdbc_bean(bean_meta_token, bean_struct_token);
-    println!("==>{}", token.to_string());
     token
 }
 /// add base field for struct which use in database;
@@ -738,7 +737,7 @@ pub fn rdbc_bean_option(
     bean_struct_token: TokenStream,
 ) -> TokenStream {
     let token = rdbc_bean::marco_rdbc_bean_option(bean_meta_token, bean_struct_token);
-    println!("==>{}", token.to_string());
+
     token
 }
 /// add base field and tree field for struct which use in database;
@@ -1013,7 +1012,7 @@ pub fn rdbc_bean_option(
 #[proc_macro_attribute]
 pub fn rdbc_tree_bean(bean_meta_token: TokenStream, bean_struct_token: TokenStream) -> TokenStream {
     let token = rdbc_tree_bean::marco_rdbc_tree_bean(bean_meta_token, bean_struct_token);
-    println!("==>{}", token.to_string());
+
     token
 }
 /// and tree field for struct which use in database;
@@ -1291,6 +1290,6 @@ pub fn rdbc_tree_bean_option(
     bean_struct_token: TokenStream,
 ) -> TokenStream {
     let token = rdbc_tree_bean::marco_rdbc_tree_bean_option(bean_meta_token, bean_struct_token);
-    println!("==>{}", token.to_string());
+
     token
 }
