@@ -1,0 +1,13 @@
+cd creates
+cd bmbp_macro_util
+cargo publish
+cd ../bmbp_marco_bean
+cargo publish
+cd ../bmbp_marco_rdbc
+cargo publish
+cd ../bmbp_marco_curd
+cargo publish
+cd ../bmbp_marco_sql
+cargo publish
+cd ../bmbp_marco
+cargo publish
