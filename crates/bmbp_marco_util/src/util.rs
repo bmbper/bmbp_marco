@@ -38,6 +38,7 @@ pub fn build_tree_field_name(tree_prefix: String) -> Vec<String> {
         format!("{}_leaf", tree_prefix),
         format!("{}_type", tree_prefix),
         format!("{}_children", tree_prefix),
+        format!("{}_order", tree_prefix),
     ]
 }
 
@@ -255,6 +256,8 @@ pub fn build_tree_field_with_children_skip(
             parse_quote!(Option<Vec<#struct_name>>)
         } else if item.ends_with("_grade") {
             parse_quote!(Option<u32>)
+        } else if item.ends_with("_order") {
+            parse_quote!(Option<usize>)
         } else {
             parse_quote!(Option<String>)
         };

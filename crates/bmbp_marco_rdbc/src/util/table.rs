@@ -1,7 +1,6 @@
 use crate::meta::RdbcTableTreeMeta;
-use bmbp_marco_util::{field_has_attrs_ident, field_has_option_type};
+use bmbp_marco_util::field_has_attrs_ident;
 use case_style::CaseStyle;
-use proc_macro::TokenStream;
 use proc_macro2::Ident;
 use quote::{format_ident, quote};
 use syn::Field;
@@ -140,18 +139,6 @@ fn build_primary_key(fields: &[Field]) -> Vec<String> {
     primary_key
 }
 
-fn parse_struct_table_name(meta: &TokenStream, struct_ident: &Ident) -> String {
-    let mut table_name = meta.to_string().replace("\"", "");
-    if table_name.is_empty() {
-        table_name = struct_ident.to_string();
-    }
-    table_name = CaseStyle::guess(table_name)
-        .unwrap()
-        .to_snakecase()
-        .to_uppercase();
-    table_name
-}
-
 fn build_struct_column_enum_field_ident(fields: &[Field]) -> Vec<Ident> {
     let mut column_fields = vec![];
     for field in fields {
@@ -198,19 +185,10 @@ fn build_impl_rdbc_table_field_ident(fields: &[Field]) -> Vec<Ident> {
     match_column_fields
 }
 
-fn get_field_from_vec(field_name: &String, field: &[Field]) -> Option<Field> {
-    for field in field {
-        if field_name.eq(&field.ident.as_ref().unwrap().to_string()) {
-            return Some(field.clone());
-        }
-    }
-    None
-}
-
 pub fn build_impl_tree_token(
     struct_ident: &Ident,
     tree_prefix: String,
-    fields: &[Field],
+    _: &[Field],
 ) -> TokenStream2 {
     let tree_code = if tree_prefix.is_empty() {
         "code".to_string()
@@ -218,6 +196,7 @@ pub fn build_impl_tree_token(
         format!("{}_code", tree_prefix)
     };
     let tree_code_field = format_ident!("{}", tree_code);
+
     let parent_code = if tree_prefix.is_empty() {
         "parent_code".to_string()
     } else {
@@ -230,6 +209,13 @@ pub fn build_impl_tree_token(
         format!("{}_children", tree_prefix)
     };
     let tree_children_code_field = format_ident!("{}", children_code);
+
+    let tree_order = if tree_prefix.is_empty() {
+        "_order".to_string()
+    } else {
+        format!("{}_order", tree_prefix)
+    };
+    let tree_order_field = format_ident!("{}", tree_order);
 
     quote! {
         impl BmbpTree<#struct_ident> for #struct_ident {
@@ -256,6 +242,13 @@ pub fn build_impl_tree_token(
             fn set_children(&mut self, children: Option<Vec<#struct_ident>>) -> &mut Self {
                 self.#tree_children_code_field = children;
                 self
+            }
+            fn get_order(&self) -> usize {
+                if let Some(v) = self.#tree_order_field {
+                    v.clone()
+                } else {
+                    0usize
+                }
             }
         }
     }
