@@ -233,7 +233,7 @@ pub fn build_base_field() -> Vec<Field> {
 }
 
 pub fn build_tree_field(filed_names: &[String], struct_name: &Ident) -> Vec<Field> {
-    build_tree_field_with_children_skip(filed_names, struct_name, false)
+    build_tree_field_with_children_skip(filed_names, struct_name, true)
 }
 pub fn build_tree_field_for_orm(filed_names: &[String], struct_name: &Ident) -> Vec<Field> {
     build_tree_field_with_children_skip(filed_names, struct_name, true)
