@@ -1,6 +1,6 @@
 use bmbp_marco_rdbc::table_rdbc_tree_bean;
-use bmbp_rdbc_type::RdbcTableIdent;
 use bmbp_rdbc_type::RdbcIdent;
+use bmbp_rdbc_type::RdbcTableIdent;
 use bmbp_util::BmbpTree;
 #[test]
 pub fn test_table_tree_orm() {
@@ -8,5 +8,7 @@ pub fn test_table_tree_orm() {
     #[derive(Debug, Clone, Default)]
     pub struct BmbpAppGroup {}
     let ident = BmbpAppGroupColumn::AppGroupCode.get_ident();
-
+    for item in BmbpAppGroup::get_columns().as_slice() {
+        println!("=================>:{}", item.get_ident());
+    }
 }
