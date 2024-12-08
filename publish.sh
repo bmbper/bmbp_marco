@@ -1,4 +1,4 @@
-cd creates
+cd crates
 cd bmbp_macro_util
 cargo publish
 cd ../bmbp_marco_bean
