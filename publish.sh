@@ -1,5 +1,5 @@
 cd crates
-cd bmbp_macro_util
+cd bmbp_marco_util
 cargo publish
 cd ../bmbp_marco_bean
 cargo publish
