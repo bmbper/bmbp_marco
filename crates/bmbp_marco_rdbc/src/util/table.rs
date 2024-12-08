@@ -103,8 +103,9 @@ pub(crate) fn build_impl_rdbc_table(
     };
 
     let match_column_fields = build_impl_rdbc_table_field_ident(fields);
+
     let token = quote! {
-        impl RdbcTable for #struct_ident {
+        impl RdbcTableIdent for #struct_ident {
             fn get_table() -> impl RdbcIdent {
                 #table_name.to_string()
             }

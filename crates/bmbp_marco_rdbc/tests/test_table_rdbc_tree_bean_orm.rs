@@ -4,7 +4,7 @@ use bmbp_marco_rdbc::table_rdbc_tree_bean_orm_option;
 pub fn test_table_rdbc_tree_bean_orm_option() {
     use bmbp_rdbc_type::RdbcIdent;
     use bmbp_rdbc_type::RdbcOrmRow;
-    use bmbp_rdbc_type::RdbcTable;
+    use bmbp_rdbc_type::RdbcTableIdent;
     use bmbp_util::BmbpTree;
     use serde::Deserialize;
     use serde::Serialize;

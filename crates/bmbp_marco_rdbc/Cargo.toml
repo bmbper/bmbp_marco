@@ -19,3 +19,4 @@ case_style = { workspace = true }
 serde = { workspace = true }
 bmbp_marco_util = { workspace = true}
 bmbp_util = {workspace = true}
+bmbp_rdbc_type = {workspace = true}
