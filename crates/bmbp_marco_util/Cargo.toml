@@ -13,5 +13,3 @@ documentation.workspace = true
 quote = { workspace = true }
 syn = { workspace = true }
 proc-macro2 = { workspace = true }
-case_style = { workspace = true }
-serde = { workspace = true }

@@ -18,9 +18,4 @@ proc-macro2 ={ workspace = true }
 case_style = { workspace = true }
 serde = { workspace = true }
 bmbp_marco_util = { workspace = true}
-tracing = { workspace = true }
-tracing-subscriber = { workspace = true }
-uuid = { workspace = true }
-chrono = { workspace = true }
-bmbp_rdbc_type = { workspace = true }
 bmbp_util = {workspace = true}
